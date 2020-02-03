@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fc8800b5-98f4-4050-bb19-43bd79f2eed4" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="64121845-b92e-424f-a106-b82b21d59a49" >
+		<http:request-connection host="www.thomas-bayer.com" />
+	</http:request-config>
+	<flow name="thomas_bayerFlow" doc:id="f7296337-d1eb-493e-842a-c2f1f1a5a014" >
+		<http:listener doc:name="Listener" doc:id="667687cd-dfb5-45dd-99d3-b0387dbf9cde" config-ref="HTTP_Listener_config" path="/Thomas_bayer1"/>
+		<http:request method="GET" doc:name="Request" doc:id="3ee0d64e-3ac0-4b31-9813-9c8988187597" config-ref="HTTP_Request_configuration" path="/sqlrest/CUSTOMER"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="592df4f0-a16d-4315-9c97-2eb94539f5d3" />
+		<logger level="INFO" doc:name="Logger" doc:id="a4dc426b-039b-4666-9e55-f0f9633ca311" message="Dumped it in the console"/>
+	</flow>
+</mule>
